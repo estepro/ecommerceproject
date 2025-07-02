@@ -4,7 +4,7 @@ import "./stylestatic.css";
 const Footer = () => {
   return (
     <footer>
-      <p>&copy; 2025 - Proyecto ecommerce TalentoTech</p>
+      <p>&copy; {new Date().getFullYear()} - Proyecto Ecommerce TalentoTech</p>
     </footer>
   );
 };

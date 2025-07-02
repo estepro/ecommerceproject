@@ -2,23 +2,18 @@ import React from "react";
 import Header from "../components/static/Header";
 import Footer from "../components/static/Footer";
 import ProductList from "../components/ProductList";
-import loadingsvg from "../assets/loading.svg";
+import loadingImg from "../assets/loading.svg";
 
-const ProductsGallery = ({
-  cart,
-  products,
-  loading,
-  addToCart,
-  delProduct,
-}) => {
+const ProductsGallery = ({ products, loading, error }) => {
   return (
     <>
-      <Header delProduct={delProduct} cartItems={cart} />
-      <h1>Galeria de productos</h1>
+      <Header />
+      <h1>Galería de productos</h1>
+      {error && <p style={{ color: "red" }}>Error al cargar los productos.</p>}
       {loading ? (
-        <img src={loadingsvg} alt="loading" className="spinner" />
+        <img src={loadingImg} alt="loading" className="spinner" />
       ) : (
-        <ProductList addToCart={addToCart} products={products} />
+        <ProductList products={products} />
       )}
 
       <Footer />

@@ -1,7 +1,10 @@
 import React from "react";
 import "./styleCart.css";
+import { useCart } from "../context/CartContext";
 
-const Cart = ({ cartItems, isOpen, onClose, delProduct }) => {
+const Cart = ({ isOpen, onClose }) => {
+  const { cart, deleteFromCart, clearCart } = useCart();
+
   return (
     <div className={`cart-drawer ${isOpen ? "open" : ""}`}>
       <div className="cart-header">
@@ -11,19 +14,24 @@ const Cart = ({ cartItems, isOpen, onClose, delProduct }) => {
         </button>
       </div>
       <div className="cart-content">
-        {cartItems.length === 0 ? (
+        {cart.length === 0 ? (
           <p style={{ color: "red" }}>El carrito esta vacío</p>
         ) : (
+          <>
           <ul className="cart-item">
-            {cartItems.map((item) => (
+            {cart.map((item) => (
               <li key={item.id} style={{ color: "black" }}>
-                {item.nombre} - {item.precio}
-                <button onClick={() => delProduct(item)}>
+                {item.nombre} - {item.precio} x {item.quantity}
+                <button onClick={() => deleteFromCart(item)}>
                   <i className="fa-solid fa-trash"></i>
                 </button>
               </li>
             ))}
           </ul>
+          <button className="clear-cart-btn" onClick={clearCart}>
+              Vaciar carrito
+            </button>
+          </>
         )}
       </div>
     </div>

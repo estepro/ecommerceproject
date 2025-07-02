@@ -1,12 +1,25 @@
 import React, { useState } from "react";
+import { useCart } from "../context/CartContext";
 import "./styleProducts.css";
 
-const Products = ({ product, addToCart }) => {
+const Products = ({ product }) => {
+  const { addToCart } = useCart();
   const [cantidad, setCantidad] = useState(1);
 
-  const increase = () =>
-    setCantidad((prev) => (prev < product.stock ? prev + 1 : prev));
-  const decrease = () => setCantidad((prev) => (prev > 1 ? prev - 1 : 1));
+  const increase = () => {
+    if (cantidad < product.stock) setCantidad(cantidad + 1);
+  };
+
+  const decrease = () => {
+    if (cantidad > 1) setCantidad(cantidad - 1);
+  };
+
+  const handleAddToCart = () => {
+    for (let i = 0; i < cantidad; i++) {
+      addToCart(product);
+    }
+    setCantidad(1);
+  };
 
   return (
     <section className="card">
@@ -16,7 +29,7 @@ const Products = ({ product, addToCart }) => {
 
       <h3 className="name">{product.nombre}</h3>
       <p className="prize">${product.precio}</p>
-      <p className="stock">{product.stock}</p>
+      <p className="stock">Stock: {product.stock}</p>
 
       <div className="qtyContainer">
         <button className="qtyButton" onClick={decrease}>
@@ -28,7 +41,9 @@ const Products = ({ product, addToCart }) => {
         </button>
       </div>
 
-      <button onClick={() => addToCart(product)}>Agregar al carrito</button>
+      <button className="addCartButton" onClick={handleAddToCart}>
+        Agregar al carrito
+      </button>
     </section>
   );
 };

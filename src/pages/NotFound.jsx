@@ -3,10 +3,10 @@ import Header from "../components/static/Header";
 import Footer from "../components/static/Footer";
 import { Link } from "react-router-dom";
 
-const NotFound = ({ cart }) => {
+const NotFound = () => {
   return (
     <>
-      <Header cartItems={cart} />
+      <Header />
       <h1>404</h1>
       <button>
         <Link to="/">Volver al inicio</Link>

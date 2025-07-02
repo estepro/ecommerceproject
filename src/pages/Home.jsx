@@ -4,10 +4,10 @@ import Footer from "../components/static/Footer";
 import loadingsvg from "../assets/loading.svg";
 import ProductList from "../components/ProductList";
 
-const Home = ({ cart, products, loading, addToCart, delProduct }) => {
+const Home = ({ products, loading, error }) => {
   return (
     <>
-      <Header borrarProducto={delProduct} cartItems={cart} />
+      <Header />
       <main>
         <h1>Bienvenidos a mi Tienda</h1>
 
@@ -17,10 +17,11 @@ const Home = ({ cart, products, loading, addToCart, delProduct }) => {
           nisi eum, harum natus velit veritatis ea iste illum facere, ipsam
           modi!
         </p>
+        {error && <p style={{ color: "red" }}>Error al cargar los productos.</p>}
         {loading ? (
           <img src={loadingsvg} alt="loading" className="spinner" />
         ) : (
-          <ProductList agregarCarrito={addToCart} productos={products} />
+          <ProductList products={products} />
         )}
       </main>
 

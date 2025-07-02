@@ -1,7 +1,7 @@
 import React from "react";
 import Products from "./Products";
 
-const ProductList = ({ products = [], addToCart }) => {
+const ProductList = ({ products = [] }) => {
   const safeProducts = Array.isArray(products) ? products : [];
   return (
     <>
@@ -14,7 +14,7 @@ const ProductList = ({ products = [], addToCart }) => {
         }}
       >
         {safeProducts.map((product) => (
-          <Products key={product.id} product={product} addToCart={addToCart} />
+          <Products key={product.id} product={product} />
         ))}
       </div>
     </>
