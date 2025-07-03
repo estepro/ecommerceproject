@@ -7,6 +7,8 @@ import ProductsGallery from "./pages/ProductsGallery";
 import Contacts from "./pages/Contacts";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./pages/Login";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -30,41 +32,34 @@ function App() {
   }, []);
 
   return (
-    <CartProvider>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                products={products}
-                loading={loading}
-                error={error}
-              />
-            }
-          />
-          <Route
-            path="/about"
-            element={<About />}
-          />
-          <Route
-            path="/products"
-            element={
-              <ProductsGallery
-                products={products}
-                loading={loading}
-                error={error}
-              />
-            }
-          />
-          <Route
-            path="/contact"
-            element={<Contacts />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home products={products} loading={loading} error={error} />
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/products"
+              element={
+                <ProductsGallery
+                  products={products}
+                  loading={loading}
+                  error={error}
+                />
+              }
+            />
+            <Route path="/contact" element={<Contacts />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
