@@ -9,6 +9,9 @@ import NotFound from "./pages/NotFound";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
+import AddProductPage from "./pages/AddProductPage";
+import Admin from "./pages/Admin";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -16,18 +19,16 @@ function App() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("/data/data.json")
+    fetch("https://686af2f6e559eba9087136fe.mockapi.io/api/v1/products")
       .then((response) => response.json())
       .then((data) => {
-        setTimeout(() => {
-          setProducts(data);
-          setLoading(false);
-        }, 2000);
+        setProducts(data);
+        setLoading(false);
       })
       .catch((error) => {
-        console.log("Error fetching data:", error);
-        setLoading(false);
+        console.error("Error fetching products:", error);
         setError(true);
+        setLoading(false);
       });
   }, []);
 
@@ -55,6 +56,15 @@ function App() {
               }
             />
             <Route path="/contact" element={<Contacts />} />
+            <Route path="/add-product" element={<AddProductPage />} />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute onlyAdmin>
+                  <Admin />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

@@ -24,7 +24,7 @@ const Products = ({ product }) => {
   return (
     <section className="card">
       <div className="imageContainer">
-        <img src={product.imagen} alt="" className="image" />
+        <img src={product.imagen} alt={product.nombre} className="image" />
       </div>
 
       <h3 className="name">{product.nombre}</h3>

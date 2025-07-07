@@ -40,6 +40,13 @@ const Header = () => {
               Contacto
             </Link>
           </li>
+          {user && user.username === "admin" && (
+            <li>
+              <Link to="/admin" className="link">
+                Admin
+              </Link>
+            </li>
+          )}
           <li className="cartnav">
             <button className="btnCart" onClick={() => setCartOpen(true)}>
               <i className="fa-solid fa-cart-shopping"></i>
@@ -57,7 +64,7 @@ const Header = () => {
           <li>
             {user ? (
               <>
-                <span className="user-info">Hola, {user.username}</span>
+                <span className="user-info">Hola, {user.username} </span>
                 <button className="logout-btn" onClick={handleLogout}>
                   Logout
                 </button>

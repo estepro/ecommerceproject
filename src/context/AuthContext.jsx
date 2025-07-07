@@ -24,9 +24,7 @@ export function AuthProvider({ children }) {
     }
   }, [user]);
 
-  // Login simulado
   const login = (username, password) => {
-    // Aquí puedes poner cualquier lógica de validación simulada
     if (username && password) {
       setUser({ username });
       return true;
