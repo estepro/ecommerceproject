@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const EditProductForm = ({ product, onCancel, onSave }) => {
   const [form, setForm] = useState({ ...product });
   const [error, setError] = useState("");
+  const [loadingAction, setLoadingAction] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,20 +23,23 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadingAction(true);
     const validationError = validate();
     if (validationError) {
       setError(validationError);
+      setLoadingAction(false);
       return;
     }
     setError("");
 
     try {
+      const { id, ...body } = form;
       const response = await fetch(
-        `https://686af2f6e559eba9087136fe.mockapi.io/api/v1/products/${form.id}`,
+        `https://686af2f6e559eba9087136fe.mockapi.io/api/v1/products/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(body),
         }
       );
       if (!response.ok) throw new Error("Error al editar producto");
@@ -44,6 +48,7 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
       console.error("Error al editar producto:", err);
       setError("No se pudo editar el producto.");
     }
+    setLoadingAction(false);
   };
 
   return (
@@ -105,7 +110,9 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
         required
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
-      <button type="submit">Guardar cambios</button>
+      <button type="submit" disabled={loadingAction}>
+        {loadingAction ? "Guardando..." : "Guardar cambios"}
+      </button>
       <button type="button" onClick={onCancel} style={{ marginLeft: 10 }}>
         Cancelar
       </button>

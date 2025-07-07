@@ -12,6 +12,7 @@ const initialState = {
 const AddProduct = ({ onProductAdded }) => {
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
+  const [loadingAction, setLoadingAction] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +32,7 @@ const AddProduct = ({ onProductAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadingAction(true);
     const validationError = validate();
     if (validationError) {
       setError(validationError);
@@ -60,6 +62,7 @@ const AddProduct = ({ onProductAdded }) => {
       console.error("Error al agregar producto:", err);
       setError("No se pudo agregar el producto.");
     }
+    setLoadingAction(false);
   };
 
   return (
@@ -124,7 +127,9 @@ const AddProduct = ({ onProductAdded }) => {
         required
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
-      <button type="submit">Agregar</button>
+      <button type="submit" disabled={loadingAction}>
+        {loadingAction ? "Agregando..." : "Agregar Producto"}
+      </button>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
   );
