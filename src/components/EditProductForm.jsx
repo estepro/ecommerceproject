@@ -52,72 +52,88 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: "0 auto" }}>
-      <h2>Editar Producto</h2>
-      <input
-        type="text"
-        name="nombre"
-        placeholder="Nombre"
-        value={form.nombre}
-        onChange={handleChange}
-        required
-        style={{ display: "block", width: "100%", marginBottom: 10 }}
-      />
-      <input
-        type="number"
-        name="precio"
-        placeholder="Precio"
-        value={form.precio}
-        onChange={handleChange}
-        required
-        min={1}
-        style={{ display: "block", width: "100%", marginBottom: 10 }}
-      />
-      <textarea
-        name="descripcion"
-        placeholder="Descripción"
-        value={form.descripcion}
-        onChange={handleChange}
-        required
-        minLength={10}
-        style={{ display: "block", width: "100%", marginBottom: 10 }}
-      />
-      <input
-        type="number"
-        name="stock"
-        placeholder="Stock"
-        value={form.stock}
-        onChange={handleChange}
-        required
-        min={0}
-        style={{ display: "block", width: "100%", marginBottom: 10 }}
-      />
-      <input
-        type="text"
-        name="imagen"
-        placeholder="URL de la imagen"
-        value={form.imagen}
-        onChange={handleChange}
-        required
-        style={{ display: "block", width: "100%", marginBottom: 10 }}
-      />
-      <input
-        type="text"
-        name="categoria"
-        placeholder="Categoría"
-        value={form.categoria}
-        onChange={handleChange}
-        required
-        style={{ display: "block", width: "100%", marginBottom: 10 }}
-      />
-      <button type="submit" disabled={loadingAction}>
-        {loadingAction ? "Guardando..." : "Guardar cambios"}
-      </button>
-      <button type="button" onClick={onCancel} style={{ marginLeft: 10 }}>
-        Cancelar
-      </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
+    <div className="container">
+      <form
+        onSubmit={handleSubmit}
+        className="p-4 border rounded bg-white shadow mx-auto"
+        style={{ maxWidth: 400 }}
+      >
+        <h2 className="mb-4 text-center">Editar Producto</h2>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          value={form.nombre}
+          onChange={handleChange}
+          required
+          className="form-control mb-3"
+        />
+        <input
+          type="number"
+          name="precio"
+          placeholder="Precio"
+          value={form.precio}
+          onChange={handleChange}
+          required
+          min={1}
+          className="form-control mb-3"
+        />
+        <textarea
+          name="descripcion"
+          placeholder="Descripción"
+          value={form.descripcion}
+          onChange={handleChange}
+          required
+          minLength={10}
+          className="form-control mb-3"
+        />
+        <input
+          type="number"
+          name="stock"
+          placeholder="Stock"
+          value={form.stock}
+          onChange={handleChange}
+          required
+          min={0}
+          className="form-control mb-3"
+        />
+        <input
+          type="text"
+          name="imagen"
+          placeholder="URL de la imagen"
+          value={form.imagen}
+          onChange={handleChange}
+          required
+          className="form-control mb-3"
+        />
+        <input
+          type="text"
+          name="categoria"
+          placeholder="Categoría"
+          value={form.categoria}
+          onChange={handleChange}
+          required
+          className="form-control mb-3"
+        />
+        <div className="d-flex justify-content-between">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={loadingAction}
+          >
+            {loadingAction ? "Guardando..." : "Guardar cambios"}
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={onCancel}
+          >
+            Cancelar
+          </button>
+        </div>
+        {error && <p className="text-danger mt-3">{error}</p>}
+      </form>
+    </div>
   );
 };
 

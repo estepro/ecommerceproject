@@ -53,7 +53,33 @@ const Admin = () => {
     <>
       <Header />
       <AddProduct onProductAdded={fetchProducts} />
-      {loading && <p>Cargando productos...</p>}
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(128,128,128,0.2)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div className="text-center">
+            <div
+              className="spinner-border text-primary"
+              role="status"
+              style={{ width: 60, height: 60 }}
+            >
+              <span className="visually-hidden">Cargando...</span>
+            </div>
+            <div className="mt-3 text-dark fs-5">Cargando productos...</div>
+          </div>
+        </div>
+      )}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
       {!loading && !error && (
@@ -79,7 +105,6 @@ const Admin = () => {
           </div>
         </div>
       )}
-      setLoadingDelete(false);setLoadingDelete(false);
       {editProduct && (
         <div className="modal">
           <div className="modal-content">

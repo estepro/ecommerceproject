@@ -67,8 +67,9 @@ const AddProduct = ({ onProductAdded }) => {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      className="p-4 border rounded bg-white shadow"
       style={{ maxWidth: 400, margin: "2rem auto" }}
+      onSubmit={handleSubmit}
     >
       <h2>Agregar Producto</h2>
       <input
@@ -78,6 +79,7 @@ const AddProduct = ({ onProductAdded }) => {
         value={form.nombre}
         onChange={handleChange}
         required
+        className="form-control mb-3"
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
       <input
@@ -88,6 +90,7 @@ const AddProduct = ({ onProductAdded }) => {
         onChange={handleChange}
         required
         min={1}
+        className="form-control mb-3"
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
       <textarea
@@ -97,6 +100,7 @@ const AddProduct = ({ onProductAdded }) => {
         onChange={handleChange}
         required
         minLength={10}
+        className="form-control mb-3"
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
       <input
@@ -107,6 +111,7 @@ const AddProduct = ({ onProductAdded }) => {
         onChange={handleChange}
         required
         min={0}
+        className="form-control mb-3"
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
       <input
@@ -116,6 +121,7 @@ const AddProduct = ({ onProductAdded }) => {
         value={form.imagen}
         onChange={handleChange}
         required
+        className="form-control mb-3"
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
       <input
@@ -125,6 +131,7 @@ const AddProduct = ({ onProductAdded }) => {
         value={form.categoria}
         onChange={handleChange}
         required
+        className="form-control mb-3"
         style={{ display: "block", width: "100%", marginBottom: 10 }}
       />
       <button type="submit" disabled={loadingAction}>
