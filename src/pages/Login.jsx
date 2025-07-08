@@ -24,33 +24,54 @@ const Login = () => {
   return (
     <>
       <Header />
-      <main>
-        <h1>Login</h1>
-        <form
-          onSubmit={handleSubmit}
-          style={{ maxWidth: 300, margin: "0 auto" }}
-        >
-          <input
-            type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            style={{ display: "block", width: "100%", marginBottom: 10 }}
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ display: "block", width: "100%", marginBottom: 10 }}
-          />
-          <button type="submit" style={{ width: "100%" }}>
-            Ingresar
-          </button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </form>
+      <main className="container py-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-lg-4">
+            <div className="card shadow-sm">
+              <div className="card-body p-4">
+                <h1 className="card-title text-center mb-4">Iniciar Sesión</h1>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label htmlFor="username" className="form-label">
+                      Usuario
+                    </label>
+                    <input
+                      type="text"
+                      id="username"
+                      className="form-control"
+                      placeholder="Usuario"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="password" className="form-label">
+                      Contraseña
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      className="form-control"
+                      placeholder="Contraseña"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  {error && (
+                    <div className="alert alert-danger py-2">{error}</div>
+                  )}
+                  <div className="d-grid">
+                    <button type="submit" className="btn btn-primary">
+                      Ingresar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
       <Footer />
     </>
