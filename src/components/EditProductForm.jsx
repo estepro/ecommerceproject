@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const EditProductForm = ({ product, onCancel, onSave }) => {
   const [form, setForm] = useState({ ...product });
-  const [error, setError] = useState("");
   const [loadingAction, setLoadingAction] = useState(false);
 
   const handleChange = (e) => {
@@ -26,11 +26,10 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
     setLoadingAction(true);
     const validationError = validate();
     if (validationError) {
-      setError(validationError);
+      toast.error(validationError);
       setLoadingAction(false);
       return;
     }
-    setError("");
 
     try {
       const { id, ...body } = form;
@@ -42,11 +41,14 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
           body: JSON.stringify(body),
         }
       );
-      if (!response.ok) throw new Error("Error al editar producto");
+      if (!response.ok) {
+        throw new Error("Error al editar producto");
+      }
+      toast.success("Producto editado correctamente");
       onSave();
     } catch (err) {
       console.error("Error al editar producto:", err);
-      setError("No se pudo editar el producto.");
+      toast.error("No se pudo editar el producto");
     }
     setLoadingAction(false);
   };
@@ -131,7 +133,6 @@ const EditProductForm = ({ product, onCancel, onSave }) => {
             Cancelar
           </button>
         </div>
-        {error && <p className="text-danger mt-3">{error}</p>}
       </form>
     </div>
   );

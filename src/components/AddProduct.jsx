@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const initialState = {
   nombre: "",
@@ -11,7 +12,6 @@ const initialState = {
 
 const AddProduct = ({ onProductAdded }) => {
   const [form, setForm] = useState(initialState);
-  const [error, setError] = useState("");
   const [loadingAction, setLoadingAction] = useState(false);
 
   const handleChange = (e) => {
@@ -35,10 +35,10 @@ const AddProduct = ({ onProductAdded }) => {
     setLoadingAction(true);
     const validationError = validate();
     if (validationError) {
-      setError(validationError);
+      toast.error(validationError); // Muestra el error con Toastify
+      setLoadingAction(false);
       return;
     }
-    setError("");
 
     const url = "https://686af2f6e559eba9087136fe.mockapi.io/api/v1/products";
     try {
@@ -54,13 +54,15 @@ const AddProduct = ({ onProductAdded }) => {
           categoria: form.categoria,
         }),
       });
-      if (!response.ok) throw new Error("Error al agregar producto");
+      if (!response.ok) {
+        throw new Error("Error al editar producto");
+      }
+      toast.success("Producto agregado correctamente");
       setForm(initialState);
-      if (onProductAdded) onProductAdded();
-      alert("Producto agregado correctamente");
+      onProductAdded();
     } catch (err) {
-      console.error("Error al agregar producto:", err);
-      setError("No se pudo agregar el producto.");
+      console.error("Error al editar producto:", err);
+      toast.error("No se pudo agregar el producto");
     }
     setLoadingAction(false);
   };
@@ -137,7 +139,6 @@ const AddProduct = ({ onProductAdded }) => {
       <button type="submit" disabled={loadingAction}>
         {loadingAction ? "Agregando..." : "Agregar Producto"}
       </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import "./styleProducts.css";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Products = ({ product }) => {
   const { addToCart } = useCart();
@@ -42,6 +43,7 @@ const Products = ({ product }) => {
       </div>
 
       <button className="addCartButton" onClick={handleAddToCart}>
+        <FaShoppingCart style={{ marginRight: 6 }} />
         Agregar al carrito
       </button>
     </section>

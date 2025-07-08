@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import AddProductPage from "./pages/AddProductPage";
 import Admin from "./pages/Admin";
 import PrivateRoute from "./components/PrivateRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -68,6 +70,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
+        <ToastContainer position="top-right" autoClose={3000} />
       </CartProvider>
     </AuthProvider>
   );

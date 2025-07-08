@@ -4,13 +4,12 @@ import Footer from "../components/static/Footer";
 import AddProduct from "../components/AddProduct";
 import ProductList from "../components/ProductList";
 import EditProductForm from "../components/EditProductForm";
+import { toast } from "react-toastify";
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState(null);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [editProduct, setEditProduct] = useState(null);
   const [loadingDelete, setLoadingDelete] = useState(false);
 
@@ -28,8 +27,6 @@ const Admin = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    setError("");
-    setSuccess("");
     setLoadingDelete(true);
     try {
       const res = await fetch(
@@ -39,11 +36,11 @@ const Admin = () => {
         }
       );
       if (!res.ok) throw new Error("Error deleting product");
-      setSuccess("Producto eliminado correctamente.");
+      toast.success("Producto eliminado correctamente");
       fetchProducts();
     } catch (err) {
       console.error("Error deleting product:", err);
-      setError("No se pudo eliminar el producto.");
+      toast.error("No se pudo eliminar el producto");
     }
     setDeleteId(null);
     setLoadingDelete(false);
@@ -80,9 +77,7 @@ const Admin = () => {
           </div>
         </div>
       )}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
-      {!loading && !error && (
+      {!loading && (
         <ProductList
           products={products}
           loading={loading}

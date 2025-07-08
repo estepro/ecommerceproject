@@ -1,5 +1,6 @@
 import React from "react";
 import Products from "./Products";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
 const ProductList = ({ products = [], isAdmin = false, onDelete, onEdit }) => {
   const safeProducts = Array.isArray(products) ? products : [];
@@ -19,14 +20,16 @@ const ProductList = ({ products = [], isAdmin = false, onDelete, onEdit }) => {
                   <button
                     className="btn btn-danger btn-sm me-2"
                     onClick={() => onDelete(product.id)}
+                    title="Eliminar"
                   >
-                    Eliminar
+                    <FaTrash />
                   </button>
                   <button
                     className="btn btn-primary btn-sm"
                     onClick={() => onEdit(product)}
+                    title="Editar"
                   >
-                    Editar
+                    <FaEdit />
                   </button>
                 </div>
               )}
